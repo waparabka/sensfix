@@ -31,7 +31,6 @@ void c_plugin::update_hooked(const decltype(update_hook)& hook) {
 				c_chat().reference()->add_message(-1, "{c43d5c}sensfix by {ffffff}waparabka{c43d5c} loaded");
 				c_input().reference()->remove_command("sensfix");
 			}
-
 			delete bs;
 
 			return true;
@@ -41,11 +40,11 @@ void c_plugin::update_hooked(const decltype(update_hook)& hook) {
 			auto sens = atoi(p);
 			
 			if (sens <= 0 || sens > 10) {
-				c_chat().reference()->add_message(-1, "{c43d5c}[sensfix]{ffffff} -> Óñòàíîâèòå ñåíñ îò 1 äî 10"); return;
+				c_chat().reference()->add_message(-1, "{c43d5c}[sensfix]{ffffff} -> Ã“Ã±Ã²Ã Ã­Ã®Ã¢Ã¨Ã²Ã¥ Ã±Ã¥Ã­Ã± Ã®Ã² 1 Ã¤Ã® 10"); return;
 			}
 			*reinterpret_cast<float*>(0xB6EC1C) = (float)sens / 3200.f;
 			
-			c_chat().reference()->add_message(-1, std::string("{c43d5c}[sensfix]{ffffff} -> Ñåíñà óñòàíîâëåíà íà " + std::to_string(sens) + " ïàëî÷êó").c_str()); return;
+			c_chat().reference()->add_message(-1, std::string("{c43d5c}[sensfix]{ffffff} -> Ã‘Ã¥Ã­Ã±Ã  Ã³Ã±Ã²Ã Ã­Ã®Ã¢Ã«Ã¥Ã­Ã  Ã­Ã  " + std::to_string(sens) + " Ã¯Ã Ã«Ã®Ã·ÃªÃ³").c_str()); return;
 		});
 	}
 	return hook.call_trampoline();
