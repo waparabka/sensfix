@@ -5,20 +5,24 @@ void patch_amazing_sensfix() {
 	auto amazing = reinterpret_cast<uintptr_t>(GetModuleHandleA("aggmain.asi"));
 	auto sizeof_amazing = reinterpret_cast<IMAGE_NT_HEADERS*>(amazing + reinterpret_cast<IMAGE_DOS_HEADER*>(amazing)->e_lfanew)->OptionalHeader.SizeOfImage;
 	
-	auto sensfix_addr = mem::find_pattern(amazing, sizeof_amazing,
+	auto config_addr = mem::find_pattern(amazing, sizeof_amazing,
 		"\x55\x8b\xec\x6a\x00\x68\x00\x00\x00\x00\x64\xa1\x00\x00\x00\x00\x50\x81\xec\x00\x00\x00\x00\xa1\x00\x00\x00\x00\x33\xc5\x89\x45\x00\x56\x57\x50\x8d\x45\x00\x64\xa3\x00\x00\x00\x00\x8b\xf9\xc6\x85\x00\x00\x00\x00\x00\x8d\x85",
 		"xxxx?x????xx????xxx????x????xxxx?xxxxx?xx????xxxx?????xx");
 	
-	mem::safe_set(sensfix_addr + 0x749, 0x90, 6);
-	mem::safe_set(sensfix_addr + 0x691, 0x90, 6);
-	mem::safe_set(sensfix_addr + 0x6ED, 0x90, 6);
+	mem::safe_set(config_addr + 0x749, 0x90, 6);
+	mem::safe_set(config_addr + 0x691, 0x90, 6);
+	mem::safe_set(config_addr + 0x6ED, 0x90, 6);
 
 	// + 0x749 0x250ad9 global
 	// + 0x691 0x250a21 aiming
 	// + 0x6ED 0x250a7d sniper
+	
+	// 0x11993F0 sens vector
 
-	for (uintptr_t addr = amazing + 0x11993F0; addr <= amazing + 0x11993F8; addr += 0x4)
-		*reinterpret_cast<float*>(addr) = 0.01250000019f;
+	auto sensfix_addr = mem::find_pattern(amazing, sizeof_amazing, "\xcd\x00\x4c\x3c\x00\xcc\x4c\x3c\x00\xcc", "x?xx?xxx?x");
+	
+	for (uintptr_t a = sensfix_addr; a <= sensfix_addr + 0x8; a += 0x4)
+		*reinterpret_cast<float*>(a) = 0.01250000019f;
 }
 
 
