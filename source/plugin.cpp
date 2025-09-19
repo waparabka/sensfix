@@ -52,12 +52,12 @@ void c_plugin::update_hooked(const decltype(update_hook)& hook) {
 		c_input().reference()->add_command("sens", [](const char* p) {
 			auto sens = atoi(p);
 			
-			if (sens <= 0 || sens > 10) {
-				c_chat().reference()->add_message(-1, "{c43d5c}[sensfix]{ffffff} -> РЈСЃС‚Р°РЅРѕРІРёС‚Рµ СЃРµРЅСЃ РѕС‚ 1 РґРѕ 10"); return;
+			if (sens <= 0 || sens > 16) {
+				c_chat().reference()->add_message(-1, "{c43d5c}[sensfix]{ffffff} -> Установите сенс от 1 до 16"); return;
 			}
 			*reinterpret_cast<float*>(0xB6EC1C) = (float)sens / 3200.f;
 			
-			c_chat().reference()->add_message(-1, std::string("{c43d5c}[sensfix]{ffffff} -> РЎРµРЅСЃ СѓСЃС‚Р°РЅРѕРІР»РµРЅ РЅР° " + std::to_string(sens) + " РїР°Р»РѕС‡РєСѓ").c_str()); return;
+			c_chat().reference()->add_message(-1, std::string("{c43d5c}[sensfix]{ffffff} -> Сенс установлен на " + std::to_string(sens) + " палочку").c_str());
 		});
 	}
 	return hook.call_trampoline();
